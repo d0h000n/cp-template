@@ -1,5 +1,4 @@
-template <const int V>
-struct max_flow {
+namespace max_flow {
     vector<int> adj[V];
     int flw[V][V], cap[V][V], trk[V];
     int src, snk;
