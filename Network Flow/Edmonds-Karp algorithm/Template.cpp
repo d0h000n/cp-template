@@ -32,4 +32,4 @@ namespace max_flow {
         }
         return res;
     }
-};
+}
