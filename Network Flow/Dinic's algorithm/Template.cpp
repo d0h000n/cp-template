@@ -1,19 +1,19 @@
-namespace max_flow {
-    const int V = 503, INF = 1e9;
-    vector<int> adj[V];
+template <const int V, typename T, const T INF>
+struct max_flow {
+    vector<int> adj[V], ldj[V];
     int src, snk;
-    int cap[V][V], flw[V][V], idx[V], dist[V];
-    void add(int u, int v, int f) {
-        if ((cap[u][v]+=f) > f) return;
+    T cap[V][V], flw[V][V];
+    max_flow(int s, int t): src(s), snk(t) {}
+    void add(int u, int v, T f) {
+        if (!f or (cap[u][v]+=f) > f or cap[v][u]) return;
         adj[u].push_back(v), adj[v].push_back(u);
     }
-    int dfs(int a=INF, int s=src) {
+    T dfs(int s, T a=INF) {
         if (s == snk) return a;
-        for (int u; idx[s] < siz(adj[s]); ++idx[s]) {
-            u = adj[s][idx[s]];
+        for (;not empty(ldj[s]); ldj[s].pop_back()) {
+            int u = ldj[s].back();
             if (cap[s][u] <= flw[s][u]) continue;
-            if (dist[s]+1 != dist[u]) continue;
-            int r = dfs(min(a,cap[s][u]-flw[s][u]), u);
+            T r = dfs(u, min(a,cap[s][u]-flw[s][u]));
             if (r > 0) {
                 flw[s][u] += r;
                 flw[u][s] -= r;
@@ -23,31 +23,27 @@ namespace max_flow {
         return 0;
     }
     bool bfs() {
-        queue<int> q;
-        fill(dist,dist+snk+1,INF), dist[src]=0;
-        bool vis[V]{};
-        vis[src] = true, q.push(src);
+        queue<int> q; int dist[V];
+        fill(dist,dist+V,int(1e9)), dist[src]=0;
+        rep(i,0,V-1) ldj[i].clear();
+        q.push(src);
         while (not empty(q)) {
             int s = q.front(); q.pop();
             for (auto u : adj[s]) {
                 if (cap[s][u] <= flw[s][u]) continue;
-                if (vis[u]) continue;
-                vis[u] = true;
-                dist[u] = dist[s]+1;
-                q.push(u);
+                if (dist[u] == int(1e9)) dist[u] = dist[s]+1, q.push(u);
+                if (dist[u] == dist[s]+1) ldj[s].push_back(u);
             }
         }
-        return vis[snk];
+        return dist[snk] != int(1e9);
     }
-    int get() {
-        ll res = 0;
+    T get() {
+        T res = 0;
         while (bfs()) {
-            int d;
-            fill(idx,idx+snk+1,0);
-            while ((d=dfs())) {
+            for (T d; (d=dfs(src));) {
                 res += d;
             }
         }
         return res;
     }
-}
+};
