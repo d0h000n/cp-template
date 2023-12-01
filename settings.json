@@ -1,0 +1,42 @@
+{
+    // "cph.language.cpp.Command": "g++-13",
+    // "cph.language.cpp.Args": "-Wl,-stack_size -Wl,0x40000000 -std=c++17 -O2 -Wall -Wno-unknown-pragmas -Wno-unused-variable -DLOCAL",
+    // "cph.general.menuChoices": "cpp python",
+    // "cph.general.defaultLanguage": "cpp",
+    // "cph.general.useShortCodeForcesName": true,
+    // "cph.general.saveLocation": "/Users/dohoon/PS/Attached_files",
+    
+    "files.autoSave": "afterDelay",
+    "files.exclude": {
+        "**/*.dSYM": true
+    },
+    
+    "editor.fontFamily": "Cascadia Code",
+    "editor.fontLigatures": true,
+    "editor.trimAutoWhitespace": false,
+    
+    "window.autoDetectColorScheme": true,
+    "window.commandCenter": false,
+    
+    "C_Cpp.default.compilerPath": "/usr/local/bin/gcc-13", // g++-13 하면 bits/stdc++.h가 오류 남 / 왠지는 모르겠음..
+    "C_Cpp.default.cppStandard": "c++17",
+    
+    "code-runner.executorMap": {
+        "python": "python3",
+        "cpp": "cd $dir && g++-13 -Wl,-stack_size -Wl,0x40000000 -std=c++17 -O2 -Wall -Wno-unknown-pragmas -Wno-unused-variable -DLOCAL $fileName -o $fileNameWithoutExt && clear && $dir$fileNameWithoutExt"
+    },
+    "code-runner.runInTerminal": true,
+    
+    "workbench.colorTheme": "GitHub Dark",
+    "workbench.preferredDarkColorTheme": "GitHub Dark",
+    "workbench.preferredLightColorTheme": "GitHub Light",
+    "workbench.panel.defaultLocation": "right",
+    "workbench.statusBar.visible": false,
+    "workbench.layoutControl.enabled": false,
+    "workbench.startupEditor": "none",
+    
+    "explorer.compactFolders": false,
+    
+    "extensions.autoUpdate": "onlyEnabledExtensions",
+    "editor.minimap.enabled": false,
+}
